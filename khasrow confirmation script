@@ -1,0 +1,120 @@
+// ==UserScript==
+// @name         khasrow confirm
+// @namespace    http://tampermonkey.net/
+// @version      2025-03-15
+// @description  try to take over the world!
+// @author       You
+// @match        https://evisatraveller.mfa.ir/en/request/confirm/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=mfa.ir
+// @grant        none
+// ==/UserScript==
+(function () {
+    const formElement = document.querySelector('#register_form');
+    if (formElement) {
+        formElement.setAttribute("target", "_blank");
+
+        const img = document.querySelector('img.ecaptcha');
+        if (img) {
+            // تابع cts() که به نظر باید تعبیه شود
+            function cts() {
+                console.log("cts function called.");
+                // اضافه کردن کد مرتبط با کد Captcha یا عملکرد مورد نیاز
+            }
+
+            setTimeout(() => {
+                cts(); // اجرای تابع cts
+            }, 1000);
+
+            setInterval(() => {
+                cts(); // فراخوانی مجدد تابع cts هر 8 ثانیه
+            }, 8000);
+
+            const fireBtn = document.createElement('button');
+            fireBtn.textContent = 'REPLACE CODE';
+            fireBtn.className = 'btn btn-danger btn-w-m btn-outline';
+            fireBtn.style = 'margin:10px;';
+            formElement.parentNode.insertBefore(fireBtn, formElement.nextSibling);
+
+            const confElement = document.querySelector('#id_activation_key');
+            fireBtn.addEventListener('click', () => {
+                // تابع injectHash که باید به درستی پیاده‌سازی شود
+                function injectHash() {
+                    console.log("injectHash function executed.");
+                    // کد برای تولید یا مدیریت hash
+                }
+                injectHash();
+
+                if (!confElement) {
+                    document.getElementById("register_form").setAttribute("action", "https://evisatraveller.mfa.ir/en/request/applyrequest/?" + randomString());
+                }
+            });
+
+            if (confElement) {
+                fireBtn.style = 'display:none;';
+                const startBtn = document.createElement('button');
+                startBtn.textContent = "Start";
+                startBtn.style = 'width:80px;';
+                formElement.parentNode.insertBefore(startBtn, formElement.nextSibling);
+
+                startBtn.addEventListener('click', () => {
+                    fireBtn.style = 'margin:10px;';
+                    startBtn.style = 'display:none;';
+
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = 'myInput';
+                    input.className = 'form-control';
+                    input.style = 'margin:10px;width:500px';
+                    input.addEventListener('change', () => {
+                        if (input.value) {
+                            document.getElementById("register_form").setAttribute("action", input.value + "?pro");
+                            var activationCode = input.value.split("/")[7];
+                            document.getElementById("id_activation_key").value = activationCode;
+                        }
+                    });
+                    formElement.parentNode.insertBefore(input, formElement.nextSibling);
+
+                    setInterval(() => {
+                        // تابع getLinkUpdate که باید پیاده‌سازی شود
+                        function getLinkUpdate(form) {
+                            console.log("getLinkUpdate function executed.");
+                            // کد برای به روز رسانی لینک یا انجام اقدامات دیگر
+                        }
+                        getLinkUpdate(formElement);
+                    }, 5000);
+                });
+
+                setInterval(() => {
+                    const firstStepSubmit = document.getElementById('first_step_submit');
+                    if (firstStepSubmit) {
+                        firstStepSubmit.disabled = false;
+                    }
+                }, 3000);
+            }
+        } else {
+            const secondPage = document.querySelector('#id_first_name');
+            if (secondPage) {
+                const error = document.querySelector('.fa-minus-circle');
+                if (error) {
+                    window.close();
+                } else {
+                    // تابع timer که باید پیاده‌سازی شود
+                    function timer(count, element) {
+                        console.log("timer function executed.");
+                        // کد برای تایمر یا اقدامات مرتبط
+                    }
+                    timer(0, "#final-form-submit");
+
+                    const info = window.location.href.split("?")[1];
+                    window.history.replaceState(null, null, "?OK?" + info);
+                }
+            }
+        }
+    }
+
+    // تابع randomString برای ایجاد رشته تصادفی
+    function randomString() {
+        return Math.random().toString(36).substring(7); // یک رشته تصادفی تولید می‌کند
+    }
+
+})();
